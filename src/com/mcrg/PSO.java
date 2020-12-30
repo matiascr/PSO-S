@@ -48,7 +48,7 @@ public class PSO {
 
     public String function;
     static Random rand = new Random();
-    private Logger l;
+    private Logger logger;
 
     public PSO(int n) {
         this.numPar = n;
@@ -70,7 +70,7 @@ public class PSO {
         this.function = "squaresum";    // Default function
         this.numDim = 3;
         this.numIt = 1000;
-        this.l = new Logger(false);
+        this.logger = new Logger(false);
     }
 
     public double f(double[] x) {
@@ -149,12 +149,12 @@ public class PSO {
         this.nReplaceIt = (int) Math.round(numIt * freq);
         this.nReplaceRange = (Math.abs(minX) + Math.abs(maxX));
 
-        l.log("Initialized PSO of:");
-        l.log(this.numPar + " particles");
-        l.log(this.numIt + " iterations");
-        l.log("Optimizing " + this.function + " function in " + this.numDim + " dimensions");
+        logger.log("Initialized PSO of:");
+        logger.log(this.numPar + " particles");
+        logger.log(this.numIt + " iterations");
+        logger.log("Optimizing " + this.function + " function in " + this.numDim + " dimensions");
         if (this.nReplace != 0 || this.nReplaceIt != 0) {
-            l.log(this.nReplace + " particles to be replaced every " + this.nReplaceIt + " rounds");
+            logger.log(this.nReplace + " particles to be replaced every " + this.nReplaceIt + " rounds");
         }
     }
 
@@ -223,7 +223,7 @@ public class PSO {
 
             // Log best result history
             if (j >= 1 && gBestValueHistory[j - 1] != gBestValueHistory[j]) {
-                l.log("Round " + j + ": updated best value to " + gBestValueHistory[j]);
+                logger.log("Round " + j + ": updated best value to " + gBestValueHistory[j]);
             }
         }
         return gBestValueHistory[gBestValueHistory.length - 1];
@@ -232,7 +232,7 @@ public class PSO {
     // Setters
 
     public void setLogger(boolean log) {
-        this.l = new Logger(log);
+        this.logger = new Logger(log);
     }
 
     public void setFunction(String function) {
