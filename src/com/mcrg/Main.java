@@ -28,7 +28,8 @@ public class Main {
                     runs = 2;
                 }
                 if (args[i].equals("-i") || args[i].equals("-iterations")) {
-                    it = Integer.parseInt(args[i + 1]);                    if (it <= 0) {
+                    it = Integer.parseInt(args[i + 1]);
+                    if (it <= 0) {
                         throw new WrongParameterException("Number of iterations has to be a positive integer");
                     }
                 }
@@ -69,35 +70,35 @@ public class Main {
             System.exit(1);
         }
 
-            Logger logger = new Logger(log);
+        Logger logger = new Logger(log);
 
-            PSO pso = new PSO(numPar);
-            pso.setLogger(log);
-            pso.setFunction(function);
-            pso.setNumDim(numDim);
-            pso.setNumIt(it);
-            pso.setFreq(freq);
-            pso.setNReplace(nR);
-            pso.setRangeRatio(rangeRatio);
+        PSO pso = new PSO(numPar);
+        pso.setLogger(log);
+        pso.setFunction(function);
+        pso.setNumDim(numDim);
+        pso.setNumIt(it);
+        pso.setFreq(freq);
+        pso.setNReplace(nR);
+        pso.setRangeRatio(rangeRatio);
 
-            if (runs == 1) {
-                logger.log("Initializing....");
-                pso.initPSO();
-                logger.log("Running....");
-                double res = pso.runPSO();
-                System.out.print(res);
-                logger.log(" is the approximation");
-                System.out.println();
-            } else if (runs == 2) {
-                logger.log("Benchmarking....");
+        if (runs == 1) {
+            logger.log("Initializing....");
+            pso.initPSO();
+            logger.log("Running....");
+            double res = pso.runPSO();
+            System.out.print(res);
+            logger.log(" is the approximation");
+            System.out.println();
+        } else if (runs == 2) {
+            logger.log("Benchmarking....");
 //            Bench b = new Bench(pso);
 //            Bench.bench(it);
-            }
         }
     }
+}
 
-    class WrongParameterException extends Exception {
-        public WrongParameterException(String errorMessage) {
-            super(errorMessage);
-        }
+class WrongParameterException extends Exception {
+    public WrongParameterException(String errorMessage) {
+        super(errorMessage);
     }
+}
