@@ -8,7 +8,7 @@ public class Logger {
         ENABLE_LOGGING = set;
     }
 
-    public static void log(final String message) {
+    public void log(final String message) {
         if (ENABLE_LOGGING) {
             System.out.println(message);
         }
