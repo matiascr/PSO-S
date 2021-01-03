@@ -56,19 +56,19 @@ public class PSO {
 	public PSO(int n) throws WrongParameterException {
 		if (n < 1) throw new WrongParameterException("Number of particles has to be a positive integer");
 		
-		this.numPar = n;
-		this.cognitiveC = 2.05;
-		this.socialC = 2.05;            // Components
-		this.minX = -5.12;
-		this.maxX = 5.12;               // Max and min x value
-		this.wMin = 0.4;
-		this.wMax = 0.9;                // Max and min inertia value
-		this.minV = 0;
+		this.numPar = n;                // Number of particles
+		this.cognitiveC = 2.05;         // Cognitive component
+		this.socialC = 2.05;            // Social component
+		this.minX = -5.12;              // Min x value
+		this.maxX = 5.12;               // Max x value
+		this.wMin = 0.4;                // Min inertia value
+		this.wMax = 0.9;                // Max inertia value
+		this.minV = 0;                  // Min vector
 		this.maxV = 1;                  // Max vector
 		this.w = 0.9;                   // Inertia
-		this.freq = 0;                // Frequency of replacement (0-1)
+		this.freq = 0;                  // Frequency of replacement (0-1)
 		this.nR = 0.00;                 // Number of particles to be replaced (0-1)
-		this.rangeRatio = 0.1;               // Range within which new particles appear (0-1)
+		this.rangeRatio = 0.1;          // Range within which new particles appear (0-1)
 		this.nReplace = 0;
 		this.nReplaceIt = 0;
 		this.nReplaceRange = (Math.abs(minX) + Math.abs(maxX)) * rangeRatio;
@@ -176,7 +176,6 @@ public class PSO {
 			boolean replaced = false;
 			// Do replacement of worst particles
 			if (nReplaceIt != 0 && step % nReplaceIt == 0) {
-//				System.out.println("At " + step + " we replace " + nReplace + " particles");
 				// Replace the worst with new ones
 				for (int p = 0; p < worst.length; p++) {
 					for (int d = 0; d < numDim; d++) {
