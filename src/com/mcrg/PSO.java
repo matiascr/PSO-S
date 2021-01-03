@@ -1,5 +1,6 @@
 package com.mcrg;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class PSO {
@@ -70,6 +71,7 @@ public class PSO {
 		this.rangeRatio = 0.1;               // Range within which new particles appear (0-1)
 		this.nReplace = 0;
 		this.nReplaceIt = 0;
+		this.nReplaceRange = (Math.abs(minX) + Math.abs(maxX)) * rangeRatio;
 		
 		this.function = "squaresum";    // Default function
 		this.numDim = 3;
@@ -122,8 +124,6 @@ public class PSO {
 		this.nowPosition = new double[numPar][numDim];       // Position coordinates
 		this.V = new double[numPar][numDim];                 // Velocity
 		
-		worst = new int[nReplace];         // Stores indices of worst particles
-		
 		this.gBestValue = Infinite;
 		// Set all particle best values to Infinite
 		for (int p = 0; p < numPar; p++) {
@@ -150,28 +150,45 @@ public class PSO {
 			pValue[p] = -pValue[p];
 		}
 		
-		// Compute replacement number and frequency
+		// Compute replacement number and frequency and range
 		this.nReplace = (int) Math.round(numPar * nR);
 		this.nReplaceIt = (int) Math.round(numIt * freq);
-		this.nReplaceRange = (Math.abs(minX) + Math.abs(maxX));
+		this.nReplaceRange = (Math.abs(minX) + Math.abs(maxX)) * rangeRatio;
+		
+		worst = new int[nReplace];         // Stores indices of worst particles
+		// Load worst particles as 1st
+		Arrays.fill(worst, 0);
 		
 		logger.log("Initialized PSO of:");
 		logger.log(this.numPar + " particles");
 		logger.log(this.numIt + " iterations");
+		logger.log("From " + minX + " to " + maxX);
 		logger.log("Optimizing " + this.function + " function in " + this.numDim + " dimensions");
 		if (this.nReplace != 0 || this.nReplaceIt != 0) {
 			logger.log(this.nReplace + " particles to be replaced every " + this.nReplaceIt + " rounds");
+			logger.log("Within " + nReplaceRange + " units of the best value.");
 		}
 	}
 	
 	public double runPSO() throws WrongParameterException {
-		int gen = 1;
+		int step = 1;
 		for (int j = 0; j < numIt; j++) {
-			
-			if (gen == nReplaceIt) {
-				
-				gen = 1;
-			} else gen++;
+			boolean replaced = false;
+			// Do replacement of worst particles
+			if (nReplaceIt != 0 && step % nReplaceIt == 0) {
+//				System.out.println("At " + step + " we replace " + nReplace + " particles");
+				// Replace the worst with new ones
+				for (int p = 0; p < worst.length; p++) {
+					for (int d = 0; d < numDim; d++) {
+						// Assign new position to new particles
+						nowPosition[p][d] = (gBestPosition[d]) + nReplaceRange * rand.nextDouble();
+						// Assign new vectors to new particles
+						V[p][d] = (rand.nextDouble() * socialC * (gBestPosition[d] - nowPosition[p][d]));
+					}
+				}
+				replaced = true;
+			}
+			step++;
 			
 			
 			// Update position
@@ -203,6 +220,11 @@ public class PSO {
 				}
 			}
 			
+			// Update social worst
+			for (int i = 0; i < pValue.length; i++) {
+				isWorst(i);
+			}
+			
 			// Update social best
 			gBestValueHistory[j] = gBestValue;
 			
@@ -230,6 +252,9 @@ public class PSO {
 			// Log best result history
 			if (j >= 1 && gBestValueHistory[j - 1] != gBestValueHistory[j]) {
 				logger.log("Round " + j + ": updated best value to " + gBestValueHistory[j]);
+				if (replaced){
+					logger.log("After a replacement");
+				}
 			}
 		}
 		return gBestValueHistory[gBestValueHistory.length - 1];
@@ -263,5 +288,18 @@ public class PSO {
 	
 	public void setRangeRatio(double rangeRatio) {
 		this.rangeRatio = rangeRatio;
+	}
+	
+	private boolean isWorse(int a, int b) {
+		return pValue[a] > pValue[b];
+	}
+	
+	private void isWorst(int a) {
+		for (int i = 0; i < worst.length; i++) {
+			if (isWorse(a, worst[i])) {
+				this.worst[i] = a;
+				break;
+			}
+		}
 	}
 }

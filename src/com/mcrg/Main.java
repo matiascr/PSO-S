@@ -86,7 +86,8 @@ public class Main {
             pso.initPSO();
             logger.log("Running....");
             double res = pso.runPSO();
-            System.out.print(res);
+//            System.out.print(res);
+            System.out.printf("%.9f", res);
             logger.log(" is the approximation");
             System.out.println();
         } else if (runs == 2) {
