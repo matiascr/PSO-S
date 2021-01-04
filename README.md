@@ -33,15 +33,15 @@ https://www.notion.so/matiascr/Particle-Swarm-Optimization-with-selection-compon
 						Actual number will be *Input* * *search space span*
 						
 ### Example execution
-`$ java com.mcrg.Main -p 1000 -i 1000 -v -rep 0.1 -freq 0.001 -range 0.1    
-Initializing....
-Initialized PSO of:
-1000 particles
-1000 iterations
-From -5.12 to 5.12
-Optimizing squaresum function in 3 dimensions
-100 particles to be replaced every 1 rounds
-Within 1.024 units of the best value.
+`$ java com.mcrg.Main -p 1000 -i 1000 -v -rep 0.1 -freq 0.001 -range 0.1\\    
+Initializing....\\
+Initialized PSO of:\\
+1000 particles\\
+1000 iterations\\
+From -5.12 to 5.12\\
+Optimizing squaresum function in 3 dimensions\\
+100 particles to be replaced every 1 rounds\\
+Within 1.024 units of the best value.\\
 Running....
 Round 3: updated best value to 0.0011319264608599822
 After a replacement
