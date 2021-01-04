@@ -1,10 +1,15 @@
 package com.mcrg;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import static java.lang.System.out;
 
 public class Main {
 	
-	public static void main(String[] args) throws WrongParameterException {
+	public static void main(String[] args) throws WrongParameterException, IOException {
 		
 		// Default settings
 		int it = 10;    // nof iterations of benchmark
@@ -97,17 +102,11 @@ public class Main {
 			logger.log("Benchmarking....");
 			Bench b = new Bench(pso);
 			double[] results = b.startBench(it);
-			out.print("Results: [");
+			out.print("Results: {");
 			for (int i = 0; i < it - 1; i++) {
 				out.print(results[i] + ", ");
 			}
-			out.println(results[it - 1] + "]");
+			out.println(results[it - 1] + "}");
 		}
-	}
-}
-
-class WrongParameterException extends Exception {
-	public WrongParameterException(String errorMessage) {
-		super(errorMessage);
 	}
 }

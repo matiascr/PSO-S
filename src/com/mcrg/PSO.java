@@ -172,7 +172,7 @@ public class PSO {
 	
 	public double runPSO() throws WrongParameterException {
 		int step = 1;
-		for (int j = 0; j < numIt; j++) {
+		for (int iteration = 0; iteration < numIt; iteration++) {
 			boolean replaced = false;
 			// Do replacement of worst particles
 			if (nReplaceIt != 0 && step % nReplaceIt == 0) {
@@ -225,10 +225,10 @@ public class PSO {
 			}
 			
 			// Update social best
-			gBestValueHistory[j] = gBestValue;
+			gBestValueHistory[iteration] = gBestValue;
 			
 			// Update inertia within bounds
-			w = wMax - ((wMax - wMin) / numIt) * j;
+			w = wMax - ((wMax - wMin) / numIt) * iteration;
 			
 			// Update vector of particle
 			for (int p = 0; p < numPar; p++) {
@@ -249,9 +249,9 @@ public class PSO {
 			}
 			
 			// Log best result history
-			if (j >= 1 && gBestValueHistory[j - 1] != gBestValueHistory[j]) {
-				logger.log("Round " + j + ": updated best value to " + gBestValueHistory[j]);
-				if (replaced){
+			if (iteration >= 1 && gBestValueHistory[iteration - 1] != gBestValueHistory[iteration]) {
+				logger.log("Round " + iteration + ": updated best value to " + gBestValueHistory[iteration]);
+				if (replaced) {
 					logger.log("After a replacement");
 				}
 			}
