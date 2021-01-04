@@ -1,14 +1,19 @@
 # PSO-S
+
 Particle Swarm Optimization with selection component
 
 ## Justification
+
 Modification of traditional PSO algorithm to include possibility of death of a number of the worst performing particles to be replaced by particles in the vicinity of the best performing one, awarding better accuracy of the results obtained.
+
 Fine tuning of the replacement parameters (frequency, number and range) is required in order to avoid over-localization, especially in functions in which many local minima/maxima exist. This is also required to avoid the diminishing returns of better accuracy at the cost of too long an execution, possibly due to a high frequency of replacement, or too large a number of particles to replace.
 
 ## Parameters and results of benchmark
+
 https://www.notion.so/matiascr/Particle-Swarm-Optimization-with-selection-component-4f2deb70a81a4de39c98385459256039
 
 ## Execution (Main)
+
 ```
 -i, -iterations			:		Number of iterations for PSO (default is 1000)
 
@@ -35,6 +40,7 @@ https://www.notion.so/matiascr/Particle-Swarm-Optimization-with-selection-compon
 ```
 
 ### Example execution
+
 ```
 $ java com.mcrg.Main -p 1000 -i 1000 -v -rep 0.1 -freq 0.001 -range 0.1    
 Initializing....
