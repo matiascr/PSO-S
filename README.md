@@ -9,7 +9,7 @@ Fine tuning of the replacement parameters (frequency, number and range) is requi
 https://www.notion.so/matiascr/Particle-Swarm-Optimization-with-selection-component-4f2deb70a81a4de39c98385459256039
 
 ## Execution (Main)
-
+```
 -i, -iterations			:		Number of iterations for PSO (default is 1000)
 
 -p, -particles			:		Number of particles to be used by PSO (default is 1000)
@@ -32,7 +32,8 @@ https://www.notion.so/matiascr/Particle-Swarm-Optimization-with-selection-compon
 						
 -r, -range			:		Distance within which new particles are generated (0-1)
 						Actual number will be *Input* * *search space span*
-						
+```
+
 ### Example execution
 ```
 $ java com.mcrg.Main -p 1000 -i 1000 -v -rep 0.1 -freq 0.001 -range 0.1    
