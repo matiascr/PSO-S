@@ -12,7 +12,8 @@ public class Main {
 	public static void main(String[] args) throws WrongParameterException, IOException {
 		
 		// Default settings
-		int it = 10;    // nof iterations of benchmark
+		int it = 1000;    // nof iterations of PSO
+		int its = 100;
 		int runs = 1;
 		int numPar = 1000;
 		int numDim = 3;
@@ -33,7 +34,7 @@ public class Main {
 				}
 				if (args[i].equals("-b") || args[i].equals("-bench")) {
 					runs = 2;
-					it = Integer.parseInt(args[i + 1]);
+					its = Integer.parseInt(args[i + 1]);
 				}
 				if (args[i].equals("-i") || args[i].equals("-iterations")) {
 					it = Integer.parseInt(args[i + 1]);
@@ -103,10 +104,10 @@ public class Main {
 			Bench b = new Bench(pso);
 			double[] results = b.startBench(it);
 			out.print("Results: {");
-			for (int i = 0; i < it - 1; i++) {
+			for (int i = 0; i < its - 1; i++) {
 				out.print(results[i] + ", ");
 			}
-			out.println(results[it - 1] + "}");
+			out.println(results[its - 1] + "}");
 		}
 	}
 }
