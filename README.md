@@ -25,13 +25,13 @@ https://www.notion.so/matiascr/Particle-Swarm-Optimization-with-selection-compon
 -d, -dimensions			:		Number of dimensions to use (sphere only works in 3)
 
 -rep,-replace			:		Proportion of particles to replace (0-1)
-						Actual number will be *Input* * *Number of particles*
+						Actual number will be Input * Number of particles
 
 -freq, -frequency		: 		Proportion of frequency to replace (0-1)
-						Actual number will be *Input* * *Number of iterations*
+						Actual number will be Input * Number of iterations
 						
 -r, -range			:		Distance within which new particles are generated (0-1)
-						Actual number will be *Input* * *search space span*
+						Actual number will be Input * Search space span
 ```
 
 ### Example execution
