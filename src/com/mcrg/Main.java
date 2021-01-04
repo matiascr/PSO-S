@@ -1,9 +1,6 @@
 package com.mcrg;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static java.lang.System.out;
 
@@ -12,10 +9,10 @@ public class Main {
 	public static void main(String[] args) throws WrongParameterException, IOException {
 		
 		// Default settings
-		int it = 1000;    // nof iterations of PSO
-		int its = 100;
+		int PSOiterations = 1000;    // nof iterations of PSO
+		int benchRounds = 100;
 		int runs = 1;
-		int numPar = 1000;
+		int numParticles = 1000;
 		int numDim = 3;
 		double freq = 0.0;
 		double nR = 0.0;
@@ -34,17 +31,17 @@ public class Main {
 				}
 				if (args[i].equals("-b") || args[i].equals("-bench")) {
 					runs = 2;
-					its = Integer.parseInt(args[i + 1]);
+					benchRounds = Integer.parseInt(args[i + 1]);
 				}
 				if (args[i].equals("-i") || args[i].equals("-iterations")) {
-					it = Integer.parseInt(args[i + 1]);
-					if (it <= 0) {
+					PSOiterations = Integer.parseInt(args[i + 1]);
+					if (PSOiterations <= 0) {
 						throw new WrongParameterException("Number of iterations has to be a positive integer");
 					}
 				}
 				if (args[i].equals("-p") || args[i].equals("-particles")) {
-					numPar = Integer.parseInt(args[i + 1]);
-					if (numPar <= 0) {
+					numParticles = Integer.parseInt(args[i + 1]);
+					if (numParticles <= 0) {
 						throw new WrongParameterException("Number of particles has to be a positive integer");
 					}
 				}
@@ -81,11 +78,11 @@ public class Main {
 		
 		Logger logger = new Logger(log);
 		
-		PSO pso = new PSO(numPar);
+		PSO pso = new PSO(numParticles);
 		pso.setLogger(log);
 		pso.setFunction(function);
 		pso.setNumDim(numDim);
-		pso.setNumIt(it);
+		pso.setNumIt(PSOiterations);
 		pso.setFreq(freq);
 		pso.setNReplace(nR);
 		pso.setRangeRatio(rangeRatio);
@@ -102,12 +99,12 @@ public class Main {
 		if (runs == 2) {
 			logger.log("Benchmarking....");
 			Bench b = new Bench(pso);
-			double[] results = b.startBench(it);
+			double[] results = b.startBench(benchRounds);
 			out.print("Results: {");
-			for (int i = 0; i < its - 1; i++) {
+			for (int i = 0; i < benchRounds - 1; i++) {
 				out.print(results[i] + ", ");
 			}
-			out.println(results[its - 1] + "}");
+			out.println(results[benchRounds - 1] + "}");
 		}
 	}
 }
