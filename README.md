@@ -10,27 +10,27 @@ https://www.notion.so/matiascr/Particle-Swarm-Optimization-with-selection-compon
 
 ## Execution (Main)
 
--i, -iterations\t\t:		Number of iterations for PSO (default is 1000)
+-i, -iterations			:		Number of iterations for PSO (default is 1000)
 
--p, -particles\t\t:		Number of particles to be used by PSO (default is 1000)
+-p, -particles			:		Number of particles to be used by PSO (default is 1000)
 
--v, -verbose\t\t:		Display updates to execution of algorithm in command line.
+-v, -verbose			:		Display updates to execution of algorithm in command line.
 
--f, -function\t\t:		Function to minimize
+-f, -function			:		Function to minimize
 						Options are "rastrigin", "squaresum", "sphere" (without quotations)
 						
--b, -bench\t\t:		Number of iterations of benchmark
+-b, -bench			:		Number of iterations of benchmark
 						Input will be the number of runs it will do
 
--d, -dimensions	\t\t:		Number of dimensions to use (sphere only works in 3)
+-d, -dimensions			:		Number of dimensions to use (sphere only works in 3)
 
--rep,-replace\t\t:		Proportion of particles to replace (0-1)
+-rep,-replace			:		Proportion of particles to replace (0-1)
 						Actual number will be *Input* * *Number of particles*
 
--freq, -frequency\t\t: 		Proportion of frequency to replace (0-1)
+-freq, -frequency		: 		Proportion of frequency to replace (0-1)
 						Actual number will be *Input* * *Number of iterations*
 						
--r, -range\t\t:		Distance within which new particles are generated (0-1)
+-r, -range			:		Distance within which new particles are generated (0-1)
 						Actual number will be *Input* * *search space span*
 						
 ### Example execution
