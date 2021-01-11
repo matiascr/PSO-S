@@ -59,7 +59,7 @@ public class PSO {
 		this.numPar = n;                // Number of particles
 		this.cognitiveC = 2.05;         // Cognitive component
 		this.socialC = 2.05;            // Social component
-		this.minX = -5.12;              // Min x value
+		this.minX = - 5.12;              // Min x value
 		this.maxX = 5.12;               // Max x value
 		this.wMin = 0.4;                // Min inertia value
 		this.wMax = 0.9;                // Max inertia value
@@ -86,6 +86,7 @@ public class PSO {
 		double sol = 0;
 		// For Rastrigin
 		switch (function) {
+			
 			case "rastrigin" -> {
 				double A = 10;
 				sol = (A * numDim);
@@ -95,6 +96,7 @@ public class PSO {
 				}
 				return sol;
 			}
+			
 			case "squaresum" -> {
 				for (double v : x) {
 					// Sum of squares: ∑ (x_i^2) -> n dimensions
@@ -102,13 +104,34 @@ public class PSO {
 				}
 				return sol;
 			}
+			
 			case "sphere" -> {
+				double[] coordinates = {0.5, 2, 3};
 				for (int i = 0; i < x.length; i++) {
-					// Sphere: ∑((x_i-a_i)^2)  -> 3 dimensions
-					double[] a = {3.5, -2, 1};
-					sol += Math.pow((x[i] - a[i]), 2);
+					// Sphere: ∑((x_i - coordinate_i)^2)  -> 3 dimensions
+					sol += Math.pow((x[i] - coordinates[i]), 2);
 				}
 				return sol;
+			}
+			
+			case "rosenbrock" -> {
+				for (int i = 0; i < x.length - 1; i++) {
+					// Rosenbrock: ∑(100*(x_i+1 - x_i^2)^2 + (1 - x_i)^2)
+					sol += ((100 * (Math.pow(x[i + 1] - Math.pow(x[i], 2), 2))) + (Math.pow(1 - x[i], 2)));
+				}
+				return sol;
+			}
+			
+			case "beale" -> {
+				sol = - 20 * Math.exp(- 0.2 * Math.sqrt(0.5 * (Math.pow(x[0], 2) + Math.pow(x[1], 2))));
+				sol -= Math.exp(0.5 * (Math.cos(2 * Math.PI * x[0]) + Math.cos(2 * Math.PI * x[1])));
+				sol += Math.E;
+				sol += 20;
+			}
+			case "ackley" -> {
+				sol = Math.pow(1.5 - x[0] + x[0] * x[1], 2);
+				sol += Math.pow(2.25 - x[0] + Math.pow(x[0] * x[1], 2), 2);
+				sol += Math.pow(2.625 - x[0] + Math.pow(x[0] * x[1], 3), 2);
 			}
 		}
 		return sol;
@@ -138,8 +161,8 @@ public class PSO {
 				
 				// Velocity zero or negative (whip back)
 				if (rand.nextDouble() < 0) {
-					V[p][i] = -V[p][i];
-					nowPosition[p][i] = -nowPosition[p][i];
+					V[p][i] = - V[p][i];
+					nowPosition[p][i] = - nowPosition[p][i];
 				}
 			}
 		}
@@ -147,7 +170,7 @@ public class PSO {
 		// Load f(x) of each particle in M
 		for (int p = 0; p < numPar; p++) {
 			pValue[p] = f(nowPosition[p]);
-			pValue[p] = -pValue[p];
+			pValue[p] = - pValue[p];
 		}
 		
 		// Compute replacement number and frequency and range
